@@ -14,7 +14,7 @@ def do_pack():
     """ a function that create .tgz of
         web_static in the folder named versions
     """
-    local('sudo mkdir -p versions')
+    local('mkdir -p versions')
     date = datetime.now().strftime("%Y%m%d%H%M%S")
     filename = "versions/web_static_{}.tgz".format(date)
     result = local('sudo tar -cvzf {} web_static'.format(filename))
@@ -31,16 +31,16 @@ def do_deploy(archive_path):
     filename = archive_path.split('/')[-1]
     no_ext = '/data/web_static/releases/' + "{}".format(filename.split('.')[0])
     try:
-        put(archive_path, '/tmp/')
+        put(archive_path, '/tmp/', use_sudo=True)
 
-        run('mkdir -p {}/'.format(no_ext))
-        run('tar -xzf /tmp/{} -C {}'.format(filename, no_ext))
-        run('rm -rf /tmp/{}'.format(filename))
-        run('mv {}/web_static/* {}/'.format(no_ext, no_ext))
-        run('rm -fr {}/web_static'.format(no_ext))
-        run('rm -fr /data/web_static/current')
+        sudo('mkdir -p {}/'.format(no_ext))
+        sudo('tar -xzf /tmp/{} -C {}'.format(filename, no_ext))
+        sudo('rm -rf /tmp/{}'.format(filename))
+        sudo('mv {}/web_static/* {}/'.format(no_ext, no_ext))
+        sudo('rm -fr {}/web_static'.format(no_ext))
+        sudo('rm -fr /data/web_static/current')
 
-        run('ln -s {}/ /data/web_static/current'.format(no_ext))
+        sudo('ln -s {}/ /data/web_static/current'.format(no_ext))
         return True
     except:
         return False
