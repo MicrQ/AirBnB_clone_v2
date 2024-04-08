@@ -52,4 +52,7 @@ def do_deploy(archive_path):
 
 def deploy():
     """ a function that initiates the deployment"""
-    return do_deploy(do_pack())
+    pack = do_pack()
+    if pack is None:
+        return False
+    return do_deploy(pack)
