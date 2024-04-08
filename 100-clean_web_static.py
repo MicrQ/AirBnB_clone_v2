@@ -22,6 +22,5 @@ def do_clean(number=0):
 
     with api.cd('/data/web_static/releases'):
         archives = sorted(api.run('ls').split(), reverse=True)
-
-    for i in range(int(number), len(archives)):
-        api.run('rm -rf {}'.format(archives[i]))
+        for i in range(int(number), len(archives)):
+            api.run('sudo rm -rf {}'.format(archives[i]))
