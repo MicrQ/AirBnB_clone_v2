@@ -73,3 +73,7 @@ file { '/etc/nginx/sites-enabled/default':
   ensure  => 'present',
   content => $nginx_conf,
 }
+
+exec { 'nginx restart':
+  path => '/etc/init.d/'
+}
