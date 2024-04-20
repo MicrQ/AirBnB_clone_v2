@@ -3,6 +3,7 @@
     routes:
         /: displays Hello HBNB!
         /hbnb: displays HBNB
+        /c/<text>: displays 'C ' + any test given
 """
 
 from flask import Flask
@@ -21,6 +22,12 @@ def index():
 def hbnb():
     """ represents /hbnb page """
     return "HBNB"
+
+
+@app.route('/c/<text>', strict_slashes=False)
+def cisfun(text):
+    """ represents /c/<anytext> """
+    return "C " + " ".join(text.split('_'))
 
 
 if __name__ == "__main__":
